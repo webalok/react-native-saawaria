@@ -10,7 +10,7 @@ export default class Home extends Component {
   }
 
  componentDidMount(){
-  this.callApi();
+  this.callApi(); 
  }  
 
  async callApi(){

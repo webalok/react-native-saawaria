@@ -45,7 +45,7 @@ export default class AddBlog extends Component {
 						onChangeText={ title => this.setState({ textinput_title : title }) }
 						underlineColorAndroid='transparent'
 						style={{ height: 40, padding:10, width: "95%", borderColor: 'gray', borderWidth: 1,  marginBottom: 20 }}
-					/>
+					/> 
 					<TextInput
 						placeholder="Enter blog description"
 						onChangeText={ description => this.setState({ textinput_description : description }) }
