@@ -28,7 +28,6 @@ export default class Home extends Component {
 			.then((response) => response.json())
 			.then((responseJson) => {
 				this.callApi(); 
-					// Alert.alert(responseJson);
 			}).catch((error) => {
 						console.error(error);
 			});
