@@ -28,7 +28,7 @@ export default class AddBlog extends Component {
 					})
 				})
 				.then((response) => response.json())
-				.then((responseJson) => {	Alert.alert(responseJson);  })
+				.then((responseJson) => {	this.props.navigation.navigate('Home');  /*Alert.alert(responseJson); */  })
 				.catch((error) => {
 						console.error(error);
 				});
