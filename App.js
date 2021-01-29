@@ -6,6 +6,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home     from './screens/Home';
 import AddBlog  from './screens/AddBlog';
 import EditBlog  from './screens/EditBlog';
+import UploadImage  from './screens/UploadImage';
+
 
 const Stack = createStackNavigator();
 
@@ -16,6 +18,7 @@ const App = () => {
         <Stack.Screen name="Home"       component={Home} />
         <Stack.Screen name="Add Blog"   component={AddBlog} />
 								<Stack.Screen name="Edit Blog"  component={EditBlog} />
+								<Stack.Screen name="Upload"  			component={UploadImage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
