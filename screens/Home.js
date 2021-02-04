@@ -8,17 +8,22 @@ export default class Home extends Component {
     this.state = {
       data:[]
 				};
+				console.log('Constructer called');
   }
 
  componentDidMount(){
 		this.callApi(); 
-		console.log('Hello');
- }  
-
+		this._unsubscribe = this.props.navigation.addListener('focus', () => { this.callApi(); });
+	}
+	componentWillUnmount() { 
+			this._unsubscribe();
+			console.log('Will unmount');
+	}	   
  async callApi(){
   let urlJson  = await fetch('http://192.168.2.34:8282/api/ShowAllBlogsList.php');
   let jsonResp = await urlJson.json();
-  this.setState({data:jsonResp});
+		this.setState({data:jsonResp});
+		console.log('calling api');
  }
 
 	removeBlog = (blogID)=> {
@@ -60,7 +65,7 @@ export default class Home extends Component {
 	}
 
  render() {
-		this.callApi();
+		//this.callApi();
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text onPress={() => this.props.navigation.navigate('Add Blog')} style={{padding:10, fontWeight:'bold', fontSize:15, color:'blue'}}> Add Blog </Text>

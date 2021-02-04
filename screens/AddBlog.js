@@ -8,7 +8,8 @@ export default class AddBlog extends Component {
 				this.state = {
      textinput_title: '',
 					textinput_description: '',
-					image_source: ''
+					image_source: '',
+					base64_data:''
     }
   }
 
@@ -24,17 +25,18 @@ export default class AddBlog extends Component {
 				Alert.alert('Image is required field');
 			}			
 			else{
-				fetch('http://192.168.2.34:8282/api/customFunction.php', {
+				fetch('http://192.168.2.34:8282/api/InsertBlogData.php', {
 					method: 'POST',
 					headers: {'Accept':'application/json','Content-Type': 'application/json'},
 					body: JSON.stringify({
 						title 						: this.state.textinput_title,
 						description : this.state.textinput_description,
-						image_source: this.state.image_source
+						image_source: this.state.image_source,
+						base64_data	: this.state.base64_data
 					})
 				})
 				.then((response) => response.json())
-				.then((responseJson) => {	 console.log(responseJson);   /*  this.props.navigation.navigate('Home'); Alert.alert(responseJson); */  })
+				.then((responseJson) => {	/* console.log(responseJson); */  this.props.navigation.navigate('Home'); /* Alert.alert(responseJson); */  })
 				.catch((error) => {
 						console.error(error);
 				});
@@ -51,7 +53,7 @@ export default class AddBlog extends Component {
 				};
 
 				ImagePicker.showImagePicker(options, (response) => {
-						console.log('Response = ', response.data);
+						console.log('Response = ', response);
 
 						if (response.didCancel) {
 								console.log('User cancelled photo picker');
@@ -64,7 +66,8 @@ export default class AddBlog extends Component {
 						}
 						else {
 								this.setState({
-									image_source: { uri: response.uri }
+									image_source: { uri: response.uri },
+									base64_data:response.data
 								});
 						}
 				});
@@ -114,14 +117,13 @@ const styles = StyleSheet.create({
 	},
 
 	ImageContainer: {
-			borderRadius: 10,
-			width: 250,
-			height: 250,
+			width: 100,
+			height: 100,
 			borderColor: '#9B9B9B',
 			borderWidth: 1 / PixelRatio.get(),
 			justifyContent: 'center',
 			alignItems: 'center',
-			backgroundColor: '#CDDC39',
+			backgroundColor: '#e7e7e7',
 
 	},
 
