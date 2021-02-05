@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, Alert, Button, TouchableOpacity, StyleSheet, PixelRatio, Image } from 'react-native';
 import ImagePicker from 'react-native-image-picker/lib/commonjs';
+import GLOBALS from '../Globals';
 
 export default class AddBlog extends Component {
   constructor(props) {
@@ -10,18 +11,18 @@ export default class AddBlog extends Component {
 					textinput_description: '',
 					image_source: '',
 					base64_data:''
-    }
+				}
+				console.log(GLOBALS.BASE_URL);
   }
 
 		InsertBlog = ()=> {
-
-			if(this.state.textinput_title.length<1){
+			if(this.state.textinput_title.length==0){
 				Alert.alert('Blog title is required field');
 			}
-			else if(this.state.textinput_description.length<1){
+			else if(this.state.textinput_description.length==0){
 				Alert.alert('Blog description is required field');
 			}
-			else if(this.state.image_source.length<1){
+			else if(this.state.image_source.length==0){
 				Alert.alert('Image is required field');
 			}			
 			else{
@@ -66,8 +67,8 @@ export default class AddBlog extends Component {
 						}
 						else {
 								this.setState({
-									image_source: { uri: response.uri },
-									base64_data:response.data
+									image_source: response.uri,
+									base64_data	:	response.data
 								});
 						}
 				});
@@ -93,8 +94,8 @@ export default class AddBlog extends Component {
 					<TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
 						<View style={styles.ImageContainer}>
 							{
-								this.state.image_source === '' 	? <Text>Select a Photo</Text> :
-								<Image style={styles.ImageContainer} source = {this.state.image_source} />
+								this.state.image_source.length==0 ? <Text>Select a Photo</Text> :
+								<Image style={styles.ImageContainer} source = {{uri:this.state.image_source}} />
 							}
 						</View>
 					</TouchableOpacity>
@@ -108,48 +109,19 @@ export default class AddBlog extends Component {
 }
 
 const styles = StyleSheet.create({
-
 	container: {
 			flex: 1,
 			alignItems: 'center',
 			backgroundColor: '#FFF8E1',
 			paddingTop: 20
 	},
-
 	ImageContainer: {
-			width: 100,
+			width: 100, 
 			height: 100,
 			borderColor: '#9B9B9B',
 			borderWidth: 1 / PixelRatio.get(),
 			justifyContent: 'center',
 			alignItems: 'center',
 			backgroundColor: '#e7e7e7',
-
-	},
-
-	TextInputStyle: {
-
-			textAlign: 'center',
-			height: 40,
-			width: '80%',
-			borderRadius: 10,
-			borderWidth: 1,
-			borderColor: '#028b53',
-			marginTop: 20
-	},
-
-	button: {
-
-			width: '80%',
-			backgroundColor: '#00BCD4',
-			borderRadius: 7,
-			marginTop: 20
-	},
-
-	TextStyle: {
-			color: '#fff',
-			textAlign: 'center',
-			padding: 10
 	}
-
 });
