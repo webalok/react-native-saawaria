@@ -2,32 +2,55 @@ import React, { Component } from 'react';
 import { View, Text, FlatList, Button, Alert } from 'react-native';
 import axios from 'axios';
 
+import GET_CONST from '../Globals';
+const API_URL = GET_CONST.API_URL;
+
 export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data:[]
+      data:[],
+						dropdown:[],
+						axios_dropdown: []
 				};
-				console.log('Constructer called');
   }
 
  componentDidMount(){
 		this.callApi(); 
+		//this.fillDropdown();
+		this.axios_dropdown();
 		this._unsubscribe = this.props.navigation.addListener('focus', () => { this.callApi(); });
 	}
-	componentWillUnmount() { 
+	componentWillUnmount() {
 			this._unsubscribe();
-			console.log('Will unmount');
 	}	   
  async callApi(){
-  let urlJson  = await fetch('http://192.168.2.34:8282/api/ShowAllBlogsList.php');
+  let urlJson  = await fetch(API_URL+'ShowAllBlogsList.php');
   let jsonResp = await urlJson.json();
 		this.setState({data:jsonResp});
-		console.log('calling api');
  }
 
+async	fillDropdown(){
+	let urlJson  = await fetch(API_URL+'ListBlogCategories.php');
+	let jsonResp = await urlJson.json();
+	this.setState({dropdown:jsonResp});
+	console.log(this.state.dropdown);
+}
+
+	axios_dropdown(){
+		var self = this;
+		axios.get(API_URL+'ListBlogCategories.php')
+			.then(function (response) {
+					self.setState({axios_dropdown: response.data})
+					console.log(self.state.axios_dropdown);
+			})
+		.catch(function (error) {
+					console.log(error);
+		});
+	}
+
 	removeBlog = (blogID)=> {
-		fetch('http://192.168.2.34:8282/api/DeleteBlogRecord.php', {
+		fetch(API_URL+'DeleteBlogRecord.php', {
 			method: 'POST',
 			headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
 			body: JSON.stringify({ ID : blogID })
@@ -49,7 +72,7 @@ export default class Home extends Component {
 		formData.append('EvidenceCategory', 'Before');
 		// formData.append('EvidenceImage', { uri: Platform.OS === 'android' ? `file:///${path}` : path, type: 'image/jpeg', name: 'image.jpg' });
 		axios({
-			url: 'http://192.168.2.34:8282/api/customFunction.php',
+			url: API_URL+'customFunction.php',
 			method: 'POST',
 			data: formData,
 			headers: { Accept: 'application/json', 'Content-Type': 'multipart/form-data' },
@@ -65,7 +88,6 @@ export default class Home extends Component {
 	}
 
  render() {
-		//this.callApi();
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text onPress={() => this.props.navigation.navigate('Add Blog')} style={{padding:10, fontWeight:'bold', fontSize:15, color:'blue'}}> Add Blog </Text>

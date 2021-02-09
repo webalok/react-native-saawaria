@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, Alert, Button, TouchableOpacity, StyleSheet, PixelRatio, Image } from 'react-native';
 import ImagePicker from 'react-native-image-picker/lib/commonjs';
-import GLOBALS from '../Globals';
+
+import GET_CONST from '../Globals';
+const API_URL = GET_CONST.API_URL;
 
 export default class AddBlog extends Component {
   constructor(props) {
@@ -12,7 +14,7 @@ export default class AddBlog extends Component {
 					image_source: '',
 					base64_data:''
 				}
-				console.log(GLOBALS.BASE_URL);
+				console.log();
   }
 
 		InsertBlog = ()=> {
@@ -26,7 +28,7 @@ export default class AddBlog extends Component {
 				Alert.alert('Image is required field');
 			}			
 			else{
-				fetch('http://192.168.2.34:8282/api/InsertBlogData.php', {
+				fetch(API_URL+'InsertBlogData.php', {
 					method: 'POST',
 					headers: {'Accept':'application/json','Content-Type': 'application/json'},
 					body: JSON.stringify({

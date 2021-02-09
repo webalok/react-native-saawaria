@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { View, Text, TextInput, Alert, Button, TouchableOpacity, StyleSheet, PixelRatio, Image } from 'react-native';
 import ImagePicker from 'react-native-image-picker/lib/commonjs';
 
+import GET_CONST from '../Globals';
+const API_URL = GET_CONST.API_URL;
+
 export default class EditBlog extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +22,7 @@ export default class EditBlog extends Component {
 				textinput_ID 								: this.props.route.params.item.ID,
 				textinput_title 					: this.props.route.params.item.title,
 				textinput_description: this.props.route.params.item.description,
-				image_source									:	'http://192.168.2.34:8282/api/upload/'+this.props.route.params.item.image,
+				image_source									:	API_URL+'upload/'+this.props.route.params.item.image,
 				base64_data										:	''
 			})
 		}
@@ -36,7 +39,7 @@ export default class EditBlog extends Component {
 				Alert.alert('Image is required field');
 			}						
 			else{
-				fetch('http://192.168.2.34:8282/api/UpdateBlogRecord.php', {
+				fetch(API_URL+'UpdateBlogRecord.php', {
 					method: 'POST',
 					headers: {'Accept':'application/json','Content-Type': 'application/json'},
 					body: JSON.stringify({
@@ -124,7 +127,7 @@ export default class EditBlog extends Component {
 }
 
 const styles = StyleSheet.create({
-
+	
 	container: {
 			flex: 1,
 			alignItems: 'center',
@@ -139,6 +142,5 @@ const styles = StyleSheet.create({
 			justifyContent: 'center',
 			alignItems: 'center',
 			backgroundColor: '#e7e7e7',
-
 	}
 });
