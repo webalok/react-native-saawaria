@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, TextInput, Alert, Button, TouchableOpacity, StyleSheet, PixelRatio, Image } from 'react-native';
 import ImagePicker from 'react-native-image-picker/lib/commonjs';
 
+import axios from 'axios';
+import {Picker} from '@react-native-picker/picker';
 import GET_CONST from '../Globals';
 const API_URL = GET_CONST.API_URL;
 
@@ -12,21 +14,29 @@ export default class AddBlog extends Component {
      textinput_title: '',
 					textinput_description: '',
 					image_source: '',
-					base64_data:''
+					base64_data:'',
+					category_dropdown: [],
+					catID: '0'
 				}
-				console.log();
   }
+
+		componentDidMount(){
+			this.category_dropdown();
+		}
 
 		InsertBlog = ()=> {
 			if(this.state.textinput_title.length==0){
-				Alert.alert('Blog title is required field');
+				Alert.alert('Blog title is required');
 			}
 			else if(this.state.textinput_description.length==0){
-				Alert.alert('Blog description is required field');
+				Alert.alert('Blog description is required');
 			}
 			else if(this.state.image_source.length==0){
-				Alert.alert('Image is required field');
-			}			
+				Alert.alert('Image is required');
+			}
+			else if(this.state.catID==0){
+				Alert.alert('Blog category is required');
+			}						
 			else{
 				fetch(API_URL+'InsertBlogData.php', {
 					method: 'POST',
@@ -35,7 +45,8 @@ export default class AddBlog extends Component {
 						title 						: this.state.textinput_title,
 						description : this.state.textinput_description,
 						image_source: this.state.image_source,
-						base64_data	: this.state.base64_data
+						base64_data	: this.state.base64_data,
+						catID       : this.state.catID
 					})
 				})
 				.then((response) => response.json())
@@ -76,6 +87,28 @@ export default class AddBlog extends Component {
 				});
 		}
 
+		category_dropdown(){
+			var self = this;
+			axios.get(API_URL+'ListBlogCategories.php')
+				.then(function (response) {
+						self.setState({category_dropdown: response.data})
+						console.log(self.state.category_dropdown);
+				})
+			.catch(function (error) {
+						console.log(error);
+			});
+		}		
+
+	reciveCategoryID=(value, index)=>
+	{
+		this.setState({ "catID": value },
+		() => {
+					// Alert.alert("catID", this.state.catID);
+				}
+		);
+}
+
+
   render() {
 			return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -102,6 +135,11 @@ export default class AddBlog extends Component {
 						</View>
 					</TouchableOpacity>
 
+					<Picker selectedValue={this.state.catID} style={{height: 80, width: '100%'}}	onValueChange={this.reciveCategoryID}	>
+						<Picker.Item label='-- Choose category --' value='0' />
+ 					{ this.state.category_dropdown.map((item, key)=> (<Picker.Item label={item.title} value={item.ID} key={key} />) )}
+    	</Picker>
+ 
 					<View style={{margin:5, width:'95%'}}><Button title='Submit' onPress={this.InsertBlog}/></View>
 					<View style={{margin:5, width:'95%'}}><Button title='Home' 		onPress={() => this.props.navigation.navigate('Home')} /></View>
 

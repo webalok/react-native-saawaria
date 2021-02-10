@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, TextInput, Alert, Button, TouchableOpacity, StyleSheet, PixelRatio, Image } from 'react-native';
 import ImagePicker from 'react-native-image-picker/lib/commonjs';
 
+import axios from 'axios';
+import {Picker} from '@react-native-picker/picker';
 import GET_CONST from '../Globals';
 const API_URL = GET_CONST.API_URL;
 
@@ -13,18 +15,23 @@ export default class EditBlog extends Component {
      textinput_title: '',
 					textinput_description: '',
 					image_source: '',
-					base64_data:''
+					base64_data:'',
+					category_dropdown: [],
+					catID: '0'
     };
   }
 
 		componentDidMount(){
+			this.category_dropdown();
 			this.setState({
 				textinput_ID 								: this.props.route.params.item.ID,
 				textinput_title 					: this.props.route.params.item.title,
 				textinput_description: this.props.route.params.item.description,
 				image_source									:	API_URL+'upload/'+this.props.route.params.item.image,
-				base64_data										:	''
-			})
+				base64_data										:	'',
+				catID																: this.props.route.params.item.blog_cat_id
+			});
+
 		}
 		
 		UpdateBlog = ()=> {
@@ -37,7 +44,10 @@ export default class EditBlog extends Component {
 			}
 			else if(this.state.image_source.length==0){
 				Alert.alert('Image is required field');
-			}						
+			}
+			else if(this.state.catID==0){
+				Alert.alert('Blog category is required');
+			}					
 			else{
 				fetch(API_URL+'UpdateBlogRecord.php', {
 					method: 'POST',
@@ -47,7 +57,8 @@ export default class EditBlog extends Component {
 						title 						: this.state.textinput_title,
 						description : this.state.textinput_description,
 						image_source: this.state.image_source,
-						base64_data	: this.state.base64_data
+						base64_data	: this.state.base64_data,
+						catID       : this.state.catID
 					})
 				})
 				.then((response) => response.json())
@@ -88,7 +99,26 @@ export default class EditBlog extends Component {
 			});
 	}
 
+	category_dropdown(){
+		var self = this;
+		axios.get(API_URL+'ListBlogCategories.php')
+			.then(function (response) {
+					self.setState({category_dropdown: response.data})
+					console.log(self.state.category_dropdown);
+			})
+		.catch(function (error) {
+					console.log(error);
+		});
+	}			
 
+	reciveCategoryID=(value, index)=>
+	{
+		this.setState({ "catID": value },
+		() => {
+					// Alert.alert("catID", this.state.catID);
+				}
+		);
+}
   render() {
 			return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -117,6 +147,10 @@ export default class EditBlog extends Component {
 						</View>
 					</TouchableOpacity>
 
+					<Picker selectedValue={this.state.catID} style={{height: 80, width: '100%'}}	onValueChange={this.reciveCategoryID}	>
+						<Picker.Item label='-- Choose category --' value='0' />
+ 					{ this.state.category_dropdown.map((item, key)=> (<Picker.Item label={item.title} value={item.ID} key={key} />) )}
+    	</Picker>
 
 					<View style={{margin:5, width:'95%'}}><Button title='Submit' onPress={this.UpdateBlog}/></View>
 					<View style={{margin:5, width:'95%'}}><Button title='Home' 		onPress={() => this.props.navigation.navigate('Home')} /></View>

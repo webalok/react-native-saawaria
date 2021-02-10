@@ -8,10 +8,11 @@
 	$title 									= $obj['title'];
 	$description 			= $obj['description'];
 	$base64string 		= $obj['base64_data'];
+	$blog_cat_id 			= $obj['catID'];	
 	$image = time().'.png';
 	file_put_contents('upload/'.$image, base64_decode($base64string));
 	
-	$Sql_Query 					= "insert into blog (title,description,image) values ('$title','$description','$image')";
+	$Sql_Query 					= "insert into blog (title,description,image,blog_cat_id) values ('$title','$description','$image',$blog_cat_id)";
 	if(mysqli_query($con,$Sql_Query)){
 		$MSG = 'Record Successfully Inserted Into MySQL Database.';
 		$json = json_encode($MSG);

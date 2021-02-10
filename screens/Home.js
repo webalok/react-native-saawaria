@@ -18,7 +18,7 @@ export default class Home extends Component {
  componentDidMount(){
 		this.callApi(); 
 		//this.fillDropdown();
-		this.axios_dropdown();
+		//this.axios_dropdown();
 		this._unsubscribe = this.props.navigation.addListener('focus', () => { this.callApi(); });
 	}
 	componentWillUnmount() {
@@ -37,19 +37,19 @@ async	fillDropdown(){
 	console.log(this.state.dropdown);
 }
 
-	axios_dropdown(){
-		var self = this;
-		axios.get(API_URL+'ListBlogCategories.php')
-			.then(function (response) {
-					self.setState({axios_dropdown: response.data})
-					console.log(self.state.axios_dropdown);
-			})
-		.catch(function (error) {
-					console.log(error);
-		});
-	}
+axios_dropdown(){
+	var self = this;
+	axios.get(API_URL+'ListBlogCategories.php')
+		.then(function (response) {
+				self.setState({axios_dropdown: response.data})
+				console.log(self.state.axios_dropdown);
+		})
+	.catch(function (error) {
+				console.log(error);
+	});
+}
 
-	removeBlog = (blogID)=> {
+removeBlog = (blogID)=> {
 		fetch(API_URL+'DeleteBlogRecord.php', {
 			method: 'POST',
 			headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
@@ -61,7 +61,6 @@ async	fillDropdown(){
 			}).catch((error) => {
 						console.error(error);
 			});
-		
 	}
 
 	customFunction(){

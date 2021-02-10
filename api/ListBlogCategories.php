@@ -5,7 +5,7 @@
 		die("Connection failed: " . $conn->connect_error);
 	}
 	
-	$sql = "SELECT * FROM blog ORDER BY ID DESC";
+	$sql = "SELECT ID, title FROM blog_category ORDER BY title ASC";
 	$result = $conn->query($sql);
 	if ($result->num_rows >0) {
 		while($row[] = $result->fetch_assoc()) {
