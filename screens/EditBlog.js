@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, Alert, Button, TouchableOpacity, StyleSheet, PixelRatio, Image } from 'react-native';
 import ImagePicker from 'react-native-image-picker/lib/commonjs';
+import SwitchSelector from "react-native-switch-selector";
 
 import axios from 'axios';
 import {Picker} from '@react-native-picker/picker';
@@ -17,7 +18,9 @@ export default class EditBlog extends Component {
 					image_source: '',
 					base64_data:'',
 					category_dropdown: [],
-					catID: '0'
+					catID: '',
+					blog_status:'',
+					switchStatus: (this.props.route.params.item.status==1?0:1)
     };
   }
 
@@ -29,7 +32,8 @@ export default class EditBlog extends Component {
 				textinput_description: this.props.route.params.item.description,
 				image_source									:	API_URL+'upload/'+this.props.route.params.item.image,
 				base64_data										:	'',
-				catID																: this.props.route.params.item.blog_cat_id
+				catID																: this.props.route.params.item.blog_cat_id,
+				blog_status										: this.props.route.params.item.status,
 			});
 
 		}
@@ -58,7 +62,8 @@ export default class EditBlog extends Component {
 						description : this.state.textinput_description,
 						image_source: this.state.image_source,
 						base64_data	: this.state.base64_data,
-						catID       : this.state.catID
+						catID       : this.state.catID,
+						blog_status	: this.state.blog_status
 					})
 				})
 				.then((response) => response.json())
@@ -151,6 +156,24 @@ export default class EditBlog extends Component {
 						<Picker.Item label='-- Choose category --' value='0' />
  					{ this.state.category_dropdown.map((item, key)=> (<Picker.Item label={item.title} value={item.ID} key={key} />) )}
     	</Picker>
+
+					<View style={{margin:5, width:'95%'}}>
+
+							<SwitchSelector
+									initial={this.state.switchStatus}
+									borderRadius={0}
+									onPress={ ClickedValue => this.setState({blog_status:ClickedValue}) }
+									textColor='#111010'
+									selectedColor='#0c0c0c'
+									buttonColor='#a4e0f4'
+									borderColor='#e7e7e7'
+									hasPadding
+									options={[
+											{ label:"Enable", 			value:1},
+											{ label:"Disable", 		value:0}
+									]}
+							/>
+						</View>
 
 					<View style={{margin:5, width:'95%'}}><Button title='Submit' onPress={this.UpdateBlog}/></View>
 					<View style={{margin:5, width:'95%'}}><Button title='Home' 		onPress={() => this.props.navigation.navigate('Home')} /></View>

@@ -10,10 +10,11 @@
 	$description 			= $obj['description'];
 	$base64string 		= $obj['base64_data'];
 	$blog_cat_id 			= $obj['catID'];	
+	$status 								= $obj['blog_status'];
 	$image = time().'.png';
 	file_put_contents('upload/'.$image, base64_decode($base64string));
 	
- $Sql_Query 					= "UPDATE blog SET title= '$title', description = '$description', image='$image', blog_cat_id=$blog_cat_id  WHERE ID = $ID";
+ $Sql_Query 					= "UPDATE blog SET title= '$title', description = '$description', image='$image', blog_cat_id=$blog_cat_id, status=$status  WHERE ID = $ID";
  if(mysqli_query($con,$Sql_Query)){
 		$MSG = 'Record Successfully updated in MySQL Database.' ;
 	$json = json_encode($MSG);

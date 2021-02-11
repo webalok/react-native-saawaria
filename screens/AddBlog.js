@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, Alert, Button, TouchableOpacity, StyleSheet, PixelRatio, Image } from 'react-native';
 import ImagePicker from 'react-native-image-picker/lib/commonjs';
+import SwitchSelector from "react-native-switch-selector";
 
 import axios from 'axios';
 import {Picker} from '@react-native-picker/picker';
@@ -16,7 +17,8 @@ export default class AddBlog extends Component {
 					image_source: '',
 					base64_data:'',
 					category_dropdown: [],
-					catID: '0'
+					catID: '0',
+					blog_status:'1'
 				}
   }
 
@@ -24,7 +26,7 @@ export default class AddBlog extends Component {
 			this.category_dropdown();
 		}
 
-		InsertBlog = ()=> {
+		InsertBlog = ()=> {			
 			if(this.state.textinput_title.length==0){
 				Alert.alert('Blog title is required');
 			}
@@ -46,7 +48,8 @@ export default class AddBlog extends Component {
 						description : this.state.textinput_description,
 						image_source: this.state.image_source,
 						base64_data	: this.state.base64_data,
-						catID       : this.state.catID
+						catID       : this.state.catID,
+						blog_status	: this.state.blog_status
 					})
 				})
 				.then((response) => response.json())
@@ -140,6 +143,23 @@ export default class AddBlog extends Component {
  					{ this.state.category_dropdown.map((item, key)=> (<Picker.Item label={item.title} value={item.ID} key={key} />) )}
     	</Picker>
  
+						<View style={{margin:5, width:'95%'}}>
+							<SwitchSelector
+									initial={0}
+									borderRadius={0}
+									onPress={ ClickedValue => this.setState({blog_status:ClickedValue}) }
+									textColor='#111010'
+									selectedColor='#0c0c0c'
+									buttonColor='#a4e0f4'
+									borderColor='#e7e7e7'
+									hasPadding
+									options={[
+											{ label:"Enable", 			value:1},
+											{ label:"Disable", 		value:0}
+									]}
+							/>
+						</View>
+						
 					<View style={{margin:5, width:'95%'}}><Button title='Submit' onPress={this.InsertBlog}/></View>
 					<View style={{margin:5, width:'95%'}}><Button title='Home' 		onPress={() => this.props.navigation.navigate('Home')} /></View>
 
