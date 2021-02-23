@@ -34,9 +34,11 @@ export default class EditBlog extends Component {
 				base64_data										:	'',
 				catID																: this.props.route.params.item.blog_cat_id,
 				blog_status										: this.props.route.params.item.status,
+			},
+			() => {
+				console.log( 'Edit mode - ' + this.state.image_source);
 			});
-
-		}
+		} 
 		
 		UpdateBlog = ()=> {
 
