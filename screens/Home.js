@@ -17,15 +17,13 @@ export default class Home extends Component {
 
  componentDidMount(){
 		this.callApi(); 
-		//this.fillDropdown();
-		//this.axios_dropdown();
 		this._unsubscribe = this.props.navigation.addListener('focus', () => { this.callApi(); });
 	}
 	componentWillUnmount() {
 			this._unsubscribe();
 	}	   
  async callApi(){
-  let urlJson  = await fetch(API_URL+'ShowAllBlogsList.php');
+  let urlJson  = await fetch('http://backup.phpwork.co.in/api/ShowAllBlogsList.php', {headers: {'Cache-Control': 'no-cache'}});
   let jsonResp = await urlJson.json();
 		this.setState({data:jsonResp});
  }
