@@ -18,6 +18,8 @@
     "axios": "^0.21.1",
     "react": "16.13.1",
     "react-native": "0.63.4",
+    "react-native-date-picker": "^3.2.10",
+    "react-native-datepicker": "^1.7.2",
     "react-native-device-info": "^8.0.1",
     "react-native-eject": "^0.1.2",
     "react-native-gesture-handler": "^1.9.0",

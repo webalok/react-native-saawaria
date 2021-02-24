@@ -149,7 +149,7 @@ export default class EditBlog extends Component {
 						<View style={styles.ImageContainer}>
 							{
 								this.state.image_source.length == 0 	? <Text>Select a Photo</Text> :
-								<Image style={styles.ImageContainer} source = {{uri:this.state.image_source}} />
+								<Image style={styles.ImageContainer} cache={false} source = {{uri:this.state.image_source}} />
 							}
 						</View>
 					</TouchableOpacity>
