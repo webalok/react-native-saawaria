@@ -21,9 +21,11 @@ export default class Home extends Component {
 	}
 	componentWillUnmount() {
 			this._unsubscribe();
+			this.callApi(); 
+			console.log('Unmount called');
 	}	   
  async callApi(){
-  let urlJson  = await fetch('http://backup.phpwork.co.in/api/ShowAllBlogsList.php', {headers: {'Cache-Control': 'no-cache'}});
+  let urlJson  = await fetch(API_URL+'ShowAllBlogsList.php', {headers: {'Cache-Control': 'no-cache'}});
   let jsonResp = await urlJson.json();
 		this.setState({data:jsonResp});
  }
