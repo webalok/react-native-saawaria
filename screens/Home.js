@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, Button, Alert } from 'react-native';
+import { View, Text, FlatList, Button, Alert, ActivityIndicator } from 'react-native';
 import axios from 'axios';
 
 import GET_CONST from '../Globals';
@@ -11,7 +11,9 @@ export default class Home extends Component {
     this.state = {
       data:[],
 						dropdown:[],
-						axios_dropdown: []
+						axios_dropdown: [],
+						page: 7,
+						showLoader:true
 				};
   }
 
@@ -22,32 +24,18 @@ export default class Home extends Component {
 	componentWillUnmount() {
 			this._unsubscribe();
 			this.callApi(); 
-			console.log('Unmount called');
-	}	   
+			this.setState = (state,callback)=>{
+				return;
+			};
+	}	
+
  async callApi(){
-  let urlJson  = await fetch(API_URL+'ShowAllBlogsList.php', {headers: {'Cache-Control': 'no-cache'}});
+  let urlJson  = await fetch(API_URL+'ShowAllBlogsList.php?page='+this.state.page, {headers: {'Cache-Control': 'no-cache'}});
   let jsonResp = await urlJson.json();
-		this.setState({data:jsonResp});
+		console.log('Record showing upto ' + this.state.page); 
+		this.setState({data:jsonResp, showLoader:false });
  }
 
-async	fillDropdown(){
-	let urlJson  = await fetch(API_URL+'ListBlogCategories.php');
-	let jsonResp = await urlJson.json();
-	this.setState({dropdown:jsonResp});
-	console.log(this.state.dropdown);
-}
-
-axios_dropdown(){
-	var self = this;
-	axios.get(API_URL+'ListBlogCategories.php')
-		.then(function (response) {
-				self.setState({axios_dropdown: response.data})
-				console.log(self.state.axios_dropdown);
-		})
-	.catch(function (error) {
-				console.log(error);
-	});
-}
 
 removeBlog = (blogID)=> {
 		fetch(API_URL+'DeleteBlogRecord.php', {
@@ -86,11 +74,43 @@ removeBlog = (blogID)=> {
 		});
 	}
 
+
+	renderFooter = ()=>
+	{
+			return(
+				<View>
+					<ActivityIndicator size="large" color="#000000" />
+				</View>
+		)
+	}
+
+	handleLoadMore = ()=> 
+	{ 
+			this.setState( {page: this.state.page + 1 },
+				()=> { this.callApi();	}
+			)
+	}
+
+
  render() {
+		
+		if(this.state.showLoader){
+			return(
+				<View>
+					<ActivityIndicator size="large" color="#000000" />
+				</View>
+			)
+		}
+
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text onPress={() => this.props.navigation.navigate('Add Blog')} style={{padding:10, fontWeight:'bold', fontSize:15, color:'blue'}}> Add Blog </Text>
-						<Text onPress={() => this.props.navigation.navigate('Upload') } style={{padding:10, fontWeight:'bold', fontSize:15, color:'blue'}}> Custom call </Text>
+			
+						{/* <ActivityIndicator size="large" color="burgundy" /> */}
+						
+
+      
+						<Text onPress={() => this.props.navigation.navigate('Add Blog')} style={{padding:10, fontWeight:'bold', fontSize:15, color:'blue'}}> Add Blog post </Text>
+						<Text onPress={() => this.props.navigation.navigate('Upload') 	} style={{padding:10, fontWeight:'bold', fontSize:15, color:'blue'}}> Custom call </Text>
 							<FlatList 
 								data={this.state.data}
 								renderItem=
@@ -110,6 +130,8 @@ removeBlog = (blogID)=> {
 										</Text> 
 								} 
 								keyExtractor={item => item.ID}  
+								onEndReached={this.handleLoadMore}
+								ListFooterComponent={this.renderFooter}
 							/>
     </View> 
   );

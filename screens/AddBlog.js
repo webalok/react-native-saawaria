@@ -95,7 +95,6 @@ export default class AddBlog extends Component {
 			axios.get(API_URL+'ListBlogCategories.php')
 				.then(function (response) {
 						self.setState({category_dropdown: response.data})
-						console.log(self.state.category_dropdown);
 				})
 			.catch(function (error) {
 						console.log(error);
