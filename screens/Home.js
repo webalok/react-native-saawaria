@@ -93,7 +93,7 @@ removeBlog = (blogID)=> {
 
 
  render() {
-		
+
 		if(this.state.showLoader){
 			return(
 				<View>
@@ -104,13 +104,9 @@ removeBlog = (blogID)=> {
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-			
-						{/* <ActivityIndicator size="large" color="burgundy" /> */}
-						
-
-      
-						<Text onPress={() => this.props.navigation.navigate('Add Blog')} style={{padding:10, fontWeight:'bold', fontSize:15, color:'blue'}}> Add Blog post </Text>
-						<Text onPress={() => this.props.navigation.navigate('Upload') 	} style={{padding:10, fontWeight:'bold', fontSize:15, color:'blue'}}> Custom call </Text>
+		
+						<Text onPress={() => this.props.navigation.navigate('Add Blog')} 				style={{padding:10, fontWeight:'bold', fontSize:15, color:'blue'}}> Add Blog post </Text>
+						<Text onPress={() => this.props.navigation.navigate('Visit Layout')} style={{padding:10, fontWeight:'bold', fontSize:15, color:'blue'}}> Cool Layout 		</Text>
 							<FlatList 
 								data={this.state.data}
 								renderItem=

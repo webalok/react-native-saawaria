@@ -6,7 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home     								from './screens/Home';
 import AddBlog  								from './screens/AddBlog';
 import EditBlog  							from './screens/EditBlog';
-import UploadImage  				from './screens/UploadImage';
+import ThemeLayout  				from './screens/Layout';
 import MyDatePicker     from './screens/MyDatePicker';
 
 
@@ -16,10 +16,10 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home"       component={Home} />
-        <Stack.Screen name="Add Blog"   component={AddBlog} />
-								<Stack.Screen name="Edit Blog"  component={EditBlog} />
-								<Stack.Screen name="Upload"  			component={MyDatePicker} />
+        <Stack.Screen name="Home"       		component={Home} />
+        <Stack.Screen name="Add Blog"   		component={AddBlog} />
+								<Stack.Screen name="Edit Blog"  		component={EditBlog} />
+								<Stack.Screen name="Visit Layout" component={ThemeLayout} />
       </Stack.Navigator>
     </NavigationContainer>
   );
