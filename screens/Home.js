@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, Button, Alert, ActivityIndicator } from 'react-native';
 import axios from 'axios';
-
+import CallingStateLess from './stateLess';
 import GET_CONST from '../Globals';
 const API_URL = GET_CONST.API_URL;
 
@@ -104,7 +104,7 @@ removeBlog = (blogID)=> {
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-		
+						<CallingStateLess />
 						<Text onPress={() => this.props.navigation.navigate('Add Blog')} 				style={{padding:10, fontWeight:'bold', fontSize:15, color:'blue'}}> Add Blog post </Text>
 						<Text onPress={() => this.props.navigation.navigate('Visit Layout')} style={{padding:10, fontWeight:'bold', fontSize:15, color:'blue'}}> Cool Layout 		</Text>
 							<FlatList 
