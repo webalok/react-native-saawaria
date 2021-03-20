@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 
 
 export default class Layout extends Component {
@@ -10,10 +10,13 @@ export default class Layout extends Component {
 					<View style={msms_css.head_wrapper}>
 							<View style={msms_css.head_inner}>
 								<View style={msms_css.head_inner_left}>
-								<Text style={msms_css.head_inner_text}>Maurii Textiles</Text>
+										<View style={msms_css.head_inner_text_logo}>
+											<Image style={{width: 150, height: 58 }} source={require('../asset/image/logo.png')} />  
+										</View>
 								</View>
 								<View style={msms_css.head_inner_right}>
-									<Text style={msms_css.head_inner_text}>sales@maurvii.in | 7007123527</Text>
+									<Text style={msms_css.head_inner_text}> <Text>This is a sentence</Text> Email us | sales@maurvii.in</Text>
+									<Text style={msms_css.head_inner_text}> Call 	us | 7007123527</Text>
 								</View>
 							</View>
 						</View>
@@ -59,8 +62,14 @@ const msms_css = StyleSheet.create({
 	head_inner_right:{
 	alignItems:'flex-end'
 	},
+	head_inner_text_logo:{
+		justifyContent:'center',
+		alignItems:'center',
+	},
 	head_inner_text:{
-		color:'white'
+		color:'white',
+		width:200,
+		paddingTop:7,
 	},
 
 	box_wrapper:{
