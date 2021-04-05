@@ -1,42 +1,62 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image } from "react-native";
+import {ScrollView, StyleSheet, Text, View, Image } from "react-native";
 
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+const babyQuilts 		= { uri: "https://www.inchmade.com/posts/backend_view/baby--custum-quilt(1).jpg" };
+const KingQuilts 		= { uri: "https://www.inchmade.com/posts/backend_view/custom-size-indian-quilts-maurvii.jpg" };
+const QueenQuilts 	= { uri: "https://www.inchmade.com/posts/backend_view/custum-size--quilt.jpg" };
+const customQuilts = { uri: "https://www.inchmade.com/posts/backend_view/wome-setting-reel-in-sewing-machine.jpg" };
 
 export default class Layout extends Component {
 	render() {
 		return (
 			<View style={msms_css.container}>
-				 
+				<ScrollView>
 					<View style={msms_css.head_wrapper}>
 							<View style={msms_css.head_inner}>
 								<View style={msms_css.head_inner_left}>
 										<View style={msms_css.head_inner_text_logo}>
-											<Image style={{width: 150, height: 58 }} source={require('../asset/image/logo.png')} />  
+												<Image style={{width: 150, height: 25 }} source={require('../asset/image/logo.png')} />  
+												<Text style={msms_css.head_inner_text}> Buy any-size quilts  </Text>
 										</View>
 								</View>
 								<View style={msms_css.head_inner_right}>
-									<Text style={msms_css.head_inner_text}> <Text>This is a sentence</Text> Email us | sales@maurvii.in</Text>
-									<Text style={msms_css.head_inner_text}> Call 	us | 7007123527</Text>
+									<Text style={msms_css.head_inner_text}>  <Icon name='envelope' size={18} /> sales@quilting.in</Text>
+									<Text style={msms_css.head_inner_text}>  <Icon name='phone'  		size={18} /> 7007123527</Text>
 								</View>
 							</View>
 						</View>
 
 						<View style={msms_css.box_wrapper}>
+
 							<View style={msms_css.box_boxed}>
-										<View style={msms_css.box_boxed_content}><Text>Box 1</Text></View>
+									<Image style= { msms_css.backgroundImage } source={babyQuilts} ></Image>
+									<View style={msms_css.box_boxed_content}><Text style={msms_css.overlay_text} >Baby quilts </Text></View>
 							</View>
 							<View style={msms_css.box_boxed}>
-										<View style={msms_css.box_boxed_content}><Text>Box 2</Text></View>
+								<Image style= { msms_css.backgroundImage } source={KingQuilts} ></Image>
+								<View style={msms_css.box_boxed_content}><Text style={msms_css.overlay_text} >King size quilts</Text></View>
 							</View>
 							<View style={msms_css.box_boxed}>
-										<View style={msms_css.box_boxed_content}><Text>Box 3</Text></View>
+								<Image style= { msms_css.backgroundImage } source={QueenQuilts} ></Image>
+								<View style={msms_css.box_boxed_content}><Text style={msms_css.overlay_text} >Queen size quilts</Text></View>
 							</View>
 							<View style={msms_css.box_boxed}>
-										<View style={msms_css.box_boxed_content}><Text>Box 4</Text></View>
+								<Image style= { msms_css.backgroundImage } source={customQuilts} ></Image>
+								<View style={msms_css.box_boxed_content}><Text style={msms_css.overlay_text} >Custom quilts</Text></View>
 							</View>
 						</View>
 
 
+						{/* <View style={{backgroundColor:'yellow', flexDirection:'row', flexWrap:'wrap', justifyContent:'center'}}>
+									<View style={{fontSize:10, width:'48%', margin:2, borderColor:'red', borderWidth:1}}><View style={{alignItems:'center'}}><Text>First</Text></View></View>
+									<View style={{fontSize:10, width:'48%', margin:2, borderColor:'red', borderWidth:1}}><View style={{alignItems:'center'}}><Text>First</Text></View></View>
+									<View style={{fontSize:10, width:'48%', margin:2, borderColor:'red', borderWidth:1}}><View style={{alignItems:'center'}}><Text>First</Text></View></View>
+									<View style={{fontSize:10, width:'48%', margin:2, borderColor:'red', borderWidth:1}}><View style={{alignItems:'center'}}><Text>First</Text></View></View>
+						</View> */}
+
+						</ScrollView>
 			</View>
 		)
 	}
@@ -64,31 +84,44 @@ const msms_css = StyleSheet.create({
 	},
 	head_inner_text_logo:{
 		justifyContent:'center',
-		alignItems:'center',
 	},
 	head_inner_text:{
 		color:'white',
 		width:200,
-		paddingTop:7,
+		fontSize:18,
 	},
 
 	box_wrapper:{
-		width:'100%',
-		height:'80%',
-		padding:5,
 		flexDirection:'row',
 		flexWrap:'wrap',
+		justifyContent:'center'
 	},
 	box_boxed:{
-		width:'50%',
-		height:'50%',
-		padding:4,
+		margin:2,
+		width:'48.5%',
+		height:194,
+		padding:2,
+
 	},
 	box_boxed_content:{
 		flex:1,
 		justifyContent:'center',
 		alignItems:'center',
-		backgroundColor:'#eee',
-	}
+	},
+	backgroundImage:{
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		bottom: 0,
+		right: 0,
+},
+overlay_text: {
+	color: "white",
+	fontSize: 18,
+	textAlign: "center",
+	backgroundColor: "#000000a0",
+	width:'84%',
+	padding:4,
+}
 
 })

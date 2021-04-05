@@ -16,7 +16,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home"       		component={Home} />
+        <Stack.Screen name="Home"       		component={ThemeLayout} />
         <Stack.Screen name="Add Blog"   		component={AddBlog} />
 								<Stack.Screen name="Edit Blog"  		component={EditBlog} />
 								<Stack.Screen name="Visit Layout" component={ThemeLayout} />
