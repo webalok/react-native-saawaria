@@ -28,10 +28,10 @@ export default class Layout extends Component {
 							</View>
 						</View>
 
+						<View><Text style={msms_css.app_labels}>Shop by categories</Text></View>
 						<View style={msms_css.box_wrapper}>
-
 							<View style={msms_css.box_boxed}>
-									<Image style= { msms_css.backgroundImage } source={babyQuilts} ></Image>
+									<Image style= { msms_css.backgroundImage } source={{ uri: 'https://www.inchmade.com/posts/backend_view/baby--custum-quilt(1).jpg' }} />
 									<View style={msms_css.box_boxed_content}><Text style={msms_css.overlay_text} >Baby quilts </Text></View>
 							</View>
 							<View style={msms_css.box_boxed}>
@@ -65,7 +65,7 @@ export default class Layout extends Component {
 const msms_css = StyleSheet.create({
 	container:{
 		flex: 1,
-		backgroundColor:'#FFF8D8'
+		backgroundColor:'white'
 	},
 	head_wrapper:{
 		width: '100%',
@@ -109,7 +109,7 @@ const msms_css = StyleSheet.create({
 		alignItems:'center',
 	},
 	backgroundImage:{
-		position: 'absolute',
+		position:'absolute',
 		top: 0,
 		left: 0,
 		bottom: 0,
@@ -117,11 +117,15 @@ const msms_css = StyleSheet.create({
 },
 overlay_text: {
 	color: "white",
-	fontSize: 18,
+	fontSize: 16,
 	textAlign: "center",
 	backgroundColor: "#000000a0",
 	width:'84%',
-	padding:4,
+	padding:5,
+},
+app_labels:{
+	fontSize: 16,
+	fontWeight: "bold",
+	padding:5
 }
-
 })
