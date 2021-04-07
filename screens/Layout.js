@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {ScrollView, StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { SliderBox } from "react-native-image-slider-box";
+import Header from './Header';
 
 export default class Layout extends Component {
 
@@ -17,25 +17,12 @@ export default class Layout extends Component {
 		};
 }
 
-
 	render() {
 		return (
 			<View style={msms_css.container}>
 				<ScrollView>
-					<View style={msms_css.head_wrapper}>
-							<View style={msms_css.head_inner}>
-								<View style={msms_css.head_inner_left}>
-										<View style={msms_css.head_inner_text_logo}>
-												<Image style={{width: 150, height: 25 }} source={require('../asset/image/logo.png')} />  
-												<Text style={msms_css.head_inner_text}> Buy any-size quilts  </Text>
-										</View>
-								</View>
-								<View style={msms_css.head_inner_right}>
-									<Text style={msms_css.head_inner_text}>  <Icon name='envelope' size={18} /> sales@quilting.in</Text>
-									<Text style={msms_css.head_inner_text}>  <Icon name='phone'  		size={18} /> 7007123527</Text>
-								</View>
-							</View>
-						</View>
+
+						<Header />
 
 						<View style={msms_css.sliderParentDiv}>
 								<SliderBox
@@ -71,7 +58,7 @@ export default class Layout extends Component {
 								<Image style= { msms_css.backgroundImage } source={{ uri: 'https://www.inchmade.com/posts/backend_view/wome-setting-reel-in-sewing-machine.jpg' }} ></Image>
 								<View style={msms_css.box_boxed_content}><Text style={msms_css.overlay_text} >Custom quilts</Text></View>
 							</TouchableOpacity>
-							
+
 						</View>
 
 
