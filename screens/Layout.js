@@ -81,30 +81,6 @@ const msms_css = StyleSheet.create({
 		flex: 1,
 		backgroundColor:'white'
 	},
-	head_wrapper:{
-		width: '100%',
-		height:'auto',
-		padding:10,
-		backgroundColor:'#4c4a3f'
-	},
-	head_inner:{
-		flexDirection:'row', justifyContent : 'space-between'
-	},
-	head_inner_left:{
-		alignItems:'flex-start'
-	},
-	head_inner_right:{
-	alignItems:'flex-end'
-	},
-	head_inner_text_logo:{
-		justifyContent:'center',
-	},
-	head_inner_text:{
-		color:'white',
-		width:200,
-		fontSize:18,
-	},
-
 	box_wrapper:{
 		flexDirection:'row',
 		flexWrap:'wrap',
@@ -115,7 +91,6 @@ const msms_css = StyleSheet.create({
 		width:'48.5%',
 		height:194,
 		padding:2,
-
 	},
 	box_boxed_content:{
 		flex:1,
