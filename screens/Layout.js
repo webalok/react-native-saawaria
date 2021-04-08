@@ -39,22 +39,22 @@ export default class Layout extends Component {
 						<View><Text style={msms_css.app_labels}>Shop by categories</Text></View>
 						<View style={msms_css.box_wrapper}>
 							
-							<TouchableOpacity style={msms_css.box_boxed} >
+							<TouchableOpacity style={msms_css.box_boxed} onPress={() => this.props.navigation.navigate('Products')}>
 									<Image style= { msms_css.backgroundImage } source={{ uri: 'https://www.inchmade.com/posts/backend_view/baby--custum-quilt(1).jpg' }} />
 									<View style={msms_css.box_boxed_content}><Text style={msms_css.overlay_text} >Baby quilts </Text></View>
 							</TouchableOpacity >
 							
-							<TouchableOpacity style={msms_css.box_boxed}>
+							<TouchableOpacity style={msms_css.box_boxed} onPress={() => this.props.navigation.navigate('Products')}>
 								<Image style= { msms_css.backgroundImage } source={{ uri: 'https://www.inchmade.com/posts/backend_view/custom-size-indian-quilts-maurvii.jpg' }} ></Image>
 								<View style={msms_css.box_boxed_content}><Text style={msms_css.overlay_text} >King size quilts</Text></View>
 							</TouchableOpacity>
 							
-							<TouchableOpacity style={msms_css.box_boxed}>
+							<TouchableOpacity style={msms_css.box_boxed} onPress={() => this.props.navigation.navigate('Products')}>
 								<Image style= { msms_css.backgroundImage } source={{ uri: 'https://www.inchmade.com/posts/backend_view/custum-size--quilt.jpg' }} ></Image>
 								<View style={msms_css.box_boxed_content}><Text style={msms_css.overlay_text} >Queen size quilts</Text></View>
 							</TouchableOpacity>
 
-							<TouchableOpacity style={msms_css.box_boxed}>
+							<TouchableOpacity style={msms_css.box_boxed} onPress={() => this.props.navigation.navigate('Products')}>
 								<Image style= { msms_css.backgroundImage } source={{ uri: 'https://www.inchmade.com/posts/backend_view/wome-setting-reel-in-sewing-machine.jpg' }} ></Image>
 								<View style={msms_css.box_boxed_content}><Text style={msms_css.overlay_text} >Custom quilts</Text></View>
 							</TouchableOpacity>

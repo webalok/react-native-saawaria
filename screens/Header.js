@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 export default class Header extends Component {
 	render() {
 		return (
-			<View style={msms_css.container}>
+			<View>
 				<ScrollView>
 					<View style={msms_css.head_wrapper}>
 							<View style={msms_css.head_inner}>

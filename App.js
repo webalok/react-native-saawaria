@@ -8,6 +8,7 @@ import AddBlog  								from './screens/AddBlog';
 import EditBlog  							from './screens/EditBlog';
 import ThemeLayout  				from './screens/Layout';
 import MyDatePicker     from './screens/MyDatePicker';
+import Products 								from './screens/CategoriedProducts';
 
 
 const Stack = createStackNavigator();
@@ -20,6 +21,7 @@ const App = () => {
         <Stack.Screen name="Add Blog"   		component={AddBlog} />
 								<Stack.Screen name="Edit Blog"  		component={EditBlog} />
 								<Stack.Screen name="Visit Layout" component={ThemeLayout} />
+								<Stack.Screen name="Products" 				component={Products} />
       </Stack.Navigator>
     </NavigationContainer>
   );
